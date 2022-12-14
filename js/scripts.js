@@ -23,6 +23,8 @@ function Star(x, y, radius, color) {
         x: 0,
         y: 3
     }
+    this.friction = 0.8
+    this.gravity = 1
 }
 
 Star.prototype.draw = function() {
@@ -36,22 +38,68 @@ Star.prototype.draw = function() {
 Star.prototype.update = function() {
     this.draw()
 
-    // when the ball hits the bottom of the screen, the ball moves upwards
+    // when the star hits the bottom of the screen, the star moves upwards
     if (this.y + this.radius + this.velocity.y > canvas.height) {
-        this.velocity.y = -this.velocity.y * 0.8
+        this.velocity.y = -this.velocity.y * this.friction
+        this.shatter()
     }
 
     else {
-        this.velocity.y += 1
+        this.velocity.y += this.gravity
     }
 
     this.y += this.velocity.y
 }
 
+// spawns MiniStars when it hits the bottom
+Star.prototype.shatter = function() {
+    for (let i = 0; i < 8; i++) {
+        miniStars.push(new MiniStar(this.x, this.y, 2, "red"))
+    }
+    // console.log(miniStars)
+}
+
+// subclass that inherits from Star parent
+function MiniStar(x, y, radius, color) {
+    Star.call(this, x, y, radius, color)
+    this.velocity = {
+        x: randomIntFromRange(-5, 5),
+        y: randomIntFromRange(-15, 15)
+    }
+    this.friction = 0.8
+    this.gravity = 0.1
+}
+
+MiniStar.prototype.draw = function() {
+    context.beginPath()
+    context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
+    context.fillStyle = this.color
+    context.fill()
+    context.closePath()
+}
+
+MiniStar.prototype.update = function() {
+    this.draw()
+
+    // when the star hits the bottom of the screen, the star moves upwards
+    if (this.y + this.radius + this.velocity.y > canvas.height) {
+        this.velocity.y = -this.velocity.y * this.friction
+    }
+
+    else {
+        this.velocity.y += this.gravity
+    }
+
+    this.x += this.velocity.x
+    this.y += this.velocity.y
+}
+
 // object instantiation and animation
 let stars
+let miniStars
 function init() {
     stars = []
+    miniStars = []
 
     for (let i = 0; i < 1; i++) {
         stars.push(new Star(canvas.width / 2, 30, 30, "blue"))
@@ -65,6 +113,15 @@ function animate() {
     stars.forEach(star => {
         star.update()
     })
+
+    miniStars.forEach(miniStar => {
+        miniStar.update()
+    })
+}
+
+// helper functions
+function randomIntFromRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
 // run loop
