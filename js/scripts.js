@@ -19,6 +19,10 @@ function Star(x, y, radius, color) {
     this.y = y
     this.radius = radius
     this.color = color
+    this.velocity = {
+        x: 0,
+        y: 3
+    }
 }
 
 Star.prototype.draw = function() {
@@ -32,7 +36,16 @@ Star.prototype.draw = function() {
 Star.prototype.update = function() {
     this.draw()
 
-    this.y += 1
+    // when the ball hits the bottom of the screen, the ball moves upwards
+    if (this.y + this.radius + this.velocity.y > canvas.height) {
+        this.velocity.y = -this.velocity.y * 0.8
+    }
+
+    else {
+        this.velocity.y += 1
+    }
+
+    this.y += this.velocity.y
 }
 
 // object instantiation and animation
