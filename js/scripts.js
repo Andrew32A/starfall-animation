@@ -100,6 +100,11 @@ MiniStar.prototype.update = function() {
     this.opacity -= 1 / this.ttl
 }
 
+// draw background
+const backgroundGradient = context.createLinearGradient(0, 0, 0, canvas.height)
+backgroundGradient.addColorStop(0, "#171e26")
+backgroundGradient.addColorStop(1, "#3f586b")
+
 // object instantiation and animation
 let stars
 let miniStars
@@ -114,7 +119,8 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate)
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = backgroundGradient
+    context.fillRect(0, 0, canvas.width, canvas.height)
 
     stars.forEach((star, index) => {
         star.update()
@@ -135,6 +141,8 @@ function animate() {
 function randomIntFromRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+
 
 // run loop
 init()
