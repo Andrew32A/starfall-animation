@@ -53,8 +53,9 @@ Star.prototype.update = function() {
 
 // spawns MiniStars when it hits the bottom
 Star.prototype.shatter = function() {
+    this.radius -= 3
     for (let i = 0; i < 8; i++) {
-        miniStars.push(new MiniStar(this.x, this.y, 2, "red"))
+        miniStars.push(new MiniStar(this.x, this.y, 2))
     }
     // console.log(miniStars)
 }
@@ -68,12 +69,15 @@ function MiniStar(x, y, radius, color) {
     }
     this.friction = 0.8
     this.gravity = 0.1
+    // ttl === time to live
+    this.ttl = 100
+    this.opacity = 1
 }
 
 MiniStar.prototype.draw = function() {
     context.beginPath()
     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    context.fillStyle = this.color
+    context.fillStyle = `rgba(255, 0, 0, ${this.opacity})`
     context.fill()
     context.closePath()
 }
@@ -92,7 +96,14 @@ MiniStar.prototype.update = function() {
 
     this.x += this.velocity.x
     this.y += this.velocity.y
+    this.ttl -= 1
+    this.opacity -= 1 / this.ttl
 }
+
+// draw background
+const backgroundGradient = context.createLinearGradient(0, 0, 0, canvas.height)
+backgroundGradient.addColorStop(0, "#171e26")
+backgroundGradient.addColorStop(1, "#3f586b")
 
 // object instantiation and animation
 let stars
@@ -108,14 +119,21 @@ function init() {
 
 function animate() {
     requestAnimationFrame(animate)
-    context.clearRect(0, 0, canvas.width, canvas.height)
+    context.fillStyle = backgroundGradient
+    context.fillRect(0, 0, canvas.width, canvas.height)
 
-    stars.forEach(star => {
+    stars.forEach((star, index) => {
         star.update()
+        if (star.radius === 0) {
+            stars.splice(index, 1)
+        }
     })
 
-    miniStars.forEach(miniStar => {
+    miniStars.forEach((miniStar, index) => {
         miniStar.update()
+        if (miniStar.ttl === 0) {
+            miniStars.splice(index, 1)
+        }
     })
 }
 
@@ -123,6 +141,8 @@ function animate() {
 function randomIntFromRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
+
+
 
 // run loop
 init()
