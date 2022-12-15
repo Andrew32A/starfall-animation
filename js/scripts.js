@@ -29,11 +29,15 @@ function Star(x, y, radius, color) {
 }
 
 Star.prototype.draw = function() {
+    context.save()
     context.beginPath()
     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
     context.fillStyle = this.color
+    context.shadowColor = "#e3eaef"
+    context.shadowBlur = 20
     context.fill()
     context.closePath()
+    context.restore()
 }
 
 Star.prototype.update = function() {
@@ -76,11 +80,15 @@ function MiniStar(x, y, radius, color) {
 }
 
 MiniStar.prototype.draw = function() {
+    context.save()
     context.beginPath()
     context.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false)
-    context.fillStyle = `rgba(255, 0, 0, ${this.opacity})`
+    context.fillStyle = `rgba(227, 234, 239, ${this.opacity})`
+    context.shadowColor = "#e3eaef"
+    context.shadowBlur = 20
     context.fill()
     context.closePath()
+    context.restore()
 }
 
 MiniStar.prototype.update = function() {
@@ -134,7 +142,7 @@ function init() {
     backgroundStars = []
 
     for (let i = 0; i < 1; i++) {
-        stars.push(new Star(canvas.width / 2, 30, 30, "blue"))
+        stars.push(new Star(canvas.width / 2, 30, 30, "#e3eaef"))
     }
 
     for (let i = 0; i < 150; i++) {
