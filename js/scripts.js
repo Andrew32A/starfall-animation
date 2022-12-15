@@ -13,6 +13,7 @@ addEventListener("resize", () => {
     // console.log(canvas.height)
 })
 
+//################################################
 // objects
 function Star(x, y, radius, color) {
     this.x = x
@@ -100,20 +101,47 @@ MiniStar.prototype.update = function() {
     this.opacity -= 1 / this.ttl
 }
 
+//################################################
+// create mountains
+function createMountainRange(mountainAmount, height, color) {
+    for (let i = 0; i < mountainAmount; i++) {
+        const mountainWidth = canvas.width / mountainAmount
+        context.beginPath()
+        context.moveTo(i * mountainWidth, canvas.height)
+        context.lineTo(i * mountainWidth + mountainWidth + 325, canvas.height)
+        context.lineTo(i * mountainWidth + mountainWidth / 2, canvas.height - height)
+        context.lineTo(i * mountainWidth - 325, canvas.height)
+        context.fillStyle = color
+        context.fill()
+        context.closePath()
+    }
+}
+
+//################################################
 // draw background
 const backgroundGradient = context.createLinearGradient(0, 0, 0, canvas.height)
 backgroundGradient.addColorStop(0, "#171e26")
 backgroundGradient.addColorStop(1, "#3f586b")
 
+//################################################
 // object instantiation and animation
 let stars
 let miniStars
+let backgroundStars
 function init() {
     stars = []
     miniStars = []
+    backgroundStars = []
 
     for (let i = 0; i < 1; i++) {
         stars.push(new Star(canvas.width / 2, 30, 30, "blue"))
+    }
+
+    for (let i = 0; i < 150; i++) {
+        const x = Math.random() * canvas.width
+        const y = Math.random() * canvas.height
+        const radius = Math.random() * 3
+        backgroundStars.push(new Star(x, y, radius, "white"))
     }
 }
 
@@ -122,13 +150,21 @@ function animate() {
     context.fillStyle = backgroundGradient
     context.fillRect(0, 0, canvas.width, canvas.height)
 
+    backgroundStars.forEach(backgroundStars => {
+        backgroundStars.draw()
+    })
+
+    createMountainRange(1, canvas.height - 50, "#384551")
+    createMountainRange(2, canvas.height - 100, "#2b3843")
+    createMountainRange(3, canvas.height - 300, "#26333e")
+
     stars.forEach((star, index) => {
         star.update()
         if (star.radius === 0) {
             stars.splice(index, 1)
         }
     })
-
+    
     miniStars.forEach((miniStar, index) => {
         miniStar.update()
         if (miniStar.ttl === 0) {
@@ -137,13 +173,13 @@ function animate() {
     })
 }
 
+//################################################
 // helper functions
 function randomIntFromRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-
-
+//################################################
 // run loop
 init()
 animate()
