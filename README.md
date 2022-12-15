@@ -7,3 +7,6 @@ In the end, I was able to add canvas, physics, OOP design, and animations to my 
 <h2 align="center"><a href="https://andrew32a.github.io/starfall-animation/">Click here to demo it!</a></h3>
 
 <img src="https://github.com/Andrew32A/starfall-animation/blob/main/images/starfall_animation_demo.gif" width="100%" align="center">
+
+# Credit
+Huge credit to <a href="https://www.youtube.com/watch?v=lNz8LOk438U&t=1s&ab_channel=ChrisCourses" target="_blank">this tutorial</a> by Chris Courses!
