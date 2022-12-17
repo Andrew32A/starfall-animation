@@ -4,7 +4,7 @@ I stumbled on this awesome YouTuber named <a href="https://www.youtube.com/@Chri
 Although I'm not a huge fan of doing tutorials, I learned a LOT more than just object oriented programming in JavaScript.
 In the end, I was able to add canvas, basic physics, JS OOP design, and animations to my tool box.
 
-<h2 align="center"><a href="https://andrew32a.github.io/starfall-animation/">Click here to demo it!</a></h3>
+<h2 align="center"><a href="https://andrew32a.github.io/starfall-animation/">Click here to demo it!</a></h2>
 
 <img src="https://github.com/Andrew32A/starfall-animation/blob/main/images/starfall_animation_demo.gif" width="100%" align="center">
 
