@@ -1,8 +1,5 @@
 # Starfall Animation
-After learning object oriented programming in python, I wanted to practice creating classes and objects in Javascript. 
-I stumbled on this awesome YouTuber named <a href="https://www.youtube.com/@ChrisCourses" target="_blank">Chris Courses</a>.
-Although I'm not a huge fan of doing tutorials, I learned a LOT more than just object oriented programming in JavaScript.
-In the end, I was able to add canvas, basic physics, JS OOP design, and animations to my tool box.
+Once I'd grasped object-oriented programming in Python, I was keen to hone my skills by creating classes and objects in JavaScript. That's when I came across <a href="https://www.youtube.com/@ChrisCourses" target="_blank">Chris Courses</a>, an excellent YouTuber whose tutorials I found both instructive and enjoyable. Although I usually try to avoid relying too heavily on tutorials, I ended up gaining much more than just a deeper understanding of object-oriented programming in JavaScript. Thanks to Chris, I was able to add canvas, basic physics, JS OOP design, and animations to my arsenal of skills.
 
 <h2 align="center"><a href="https://andrew32a.github.io/starfall-animation/">Click here to demo it!</a></h2>
 
